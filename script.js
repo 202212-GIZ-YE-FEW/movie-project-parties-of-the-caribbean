@@ -27,11 +27,35 @@ const constructUrl = (path) => {
   )}`;
 };
 
+const constructUrlFetchMore = (path, page) => {
+  return `${TMDB_BASE_URL}/${path}?api_key=${atob(
+    "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+  )}&page=${page}`;
+};
+
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  renderMovie(movieRes);
+  const movieCredits = await fetchMovie(movie.id, "credits"); // for actors
+  const movieSimilars = await fetchMovie(movie.id, "similar"); 
+  // const allRelatedMovies = []
+  // if(movieSimilars.total_pages > 1 ){
+  //   allRelatedMovies.push(...movieSimilars.results);
+  //   for(let i=1; i < movieSimilars.total_pages; i++){
+  //     const data = await fetchMore(`movie/${movie.id}/similar`, i);
+  //     allRelatedMovies.push(...data.results);
+  //   }
+  // }
+
+  const movieTrailer = await fetchMovie(movie.id, "trailers");
+  renderMovie(movieRes, movieCredits, movieSimilars, movieTrailer);
 };
+
+const fetchMore = async (path, page=1) => {
+  const url = constructUrlFetchMore(path, page);
+  const res = await fetch(url);
+  return res.json();
+}
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
@@ -41,8 +65,8 @@ const fetchMovies = async () => {
 };
 
 // Don't touch this function please. This function is to fetch one movie.
-const fetchMovie = async (movieId) => {
-  const url = constructUrl(`movie/${movieId}`);
+const fetchMovie = async (movieId, path="") => {
+  const url = path ? constructUrl(`movie/${movieId}/${path}`): constructUrl(`movie/${movieId}`);
   const res = await fetch(url);
   return res.json();
 };
@@ -64,7 +88,38 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
+const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
+  const trailer = document.createElement('div');
+  const production_companies = document.createElement('div');
+
+  // A trailer that has the movie trailer from youtube
+  let trailerSource;
+  movieTrailer.youtube.find(item => {
+    if(item.type === "Trailer")
+      trailerSource =  item.source;
+  });
+  // Trailer DOM
+  trailer.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${trailerSource}"></iframe>`;
+
+  // The movie production company name and logo
+  movie.production_companies.forEach(comp => {
+    production_companies.innerHTML += `
+      <li>
+        <img src="${BACKDROP_BASE_URL + comp.logo_path}" alt="${
+          comp.name
+        } poster">
+            <span>${comp.name}</span> 
+      </li>
+    `;
+  });
+  
+  // The director name
+  let director_name;
+  movieCredits.crew.find(item => {
+    if(item.job === "Director")
+      director_name = item.name;
+  });
+  
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -73,24 +128,72 @@ const renderMovie = (movie) => {
              }>
         </div>
         <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
+            <h2 id="movie-title">${movie.id}, ${movie.title}</h2>
             <p id="movie-release-date"><b>Release Date:</b> ${
               movie.release_date
             }</p>
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
+            <p id="movie-language"><b>Languages:</b> ${movie.spoken_languages.map(lang => {
+              return ` ${lang.english_name}`
+            })}</p>
+            <p id="movie-director-name"><b>Director Name:</b> ${director_name}</p>
+            <p id="movie-vote-average"><b>Vote Average:</b> ${movie.vote_average}</p>
+            <p id="movie-vote-count"><b>Vote Count:</b> ${movie.vote_count}</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
         </div>
         </div>
+        <div class="row">
             <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
-    </div>`;
-    
+            <ul id="movie-actors" class="list-unstyled"></ul>
+        </div>
+        <div class="row">
+            <h3>Related Movies:</h3>
+            <ul id="movie-related-movies" class="list-unstyled"></ul>
+        </div>
+        <div class="row">
+            <h3>Trailer:</h3>
+            ${trailer.innerHTML}
+        </div>
+        <div id="movie-production-companies"><b>Production Companies:</b> 
+          <ul>
+            ${production_companies.innerHTML}
+          </ul>
+        </div>
+    </div>`;  
+
+  // The main 5 actors of the movies in the credit section
+  movieCredits.cast.map(actor => {
+    const singleActor = document.createElement('li');
+    singleActor.classList.add('single-actor')
+    singleActor.innerHTML = `
+        <a href="#">${actor.name}</a>
+    `;
+    singleActor.addEventListener("click", () => {
+      actoreDetails(actor);
+      relatedMovies(actor);
+    });
+    const actorsList = document.querySelector('ul#movie-actors');
+    actorsList.appendChild(singleActor);
+  });
   
+  //The related movies section which includes at least five related movies
+  // Page1
+  movieSimilars.results.forEach(similar => {
+    const singleSimilar = document.createElement('li');
+    singleSimilar.classList.add('single-related-movie')
+    singleSimilar.innerHTML = `
+        <a href="#">${similar.original_title}</a>
+    `;
+    singleSimilar.addEventListener("click", () => {
+      movieDetails(similar);
+    });
+    const similarsList = document.querySelector('ul#movie-related-movies');
+    similarsList.appendChild(singleSimilar);
+  });
 };
 // fetch related movies
 const fetchRelatedMovies = async (actorId) => {
-console.log('k')
   const url = constructUrl(`person/${actorId}/movie_credits`);
   const res = await fetch(url);
   return res.json();
@@ -110,7 +213,6 @@ const fetchActor = async (actorId) => {
 };
 // render single actor
 const renderActor = (actor) => {
-
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -150,7 +252,6 @@ const renderRelatedMovies = (relatedMovies) => {
         <h3>${relatedMovie.title}</h3>`;
    
     const related = document.querySelector('ul#related')
-    console.log("k")
     related.appendChild(relatedMovieDiv)
   });
 };
