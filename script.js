@@ -76,10 +76,14 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
   // The main 5 actors of the movies in the credit section
   movieCredits.cast.slice(0, 5).forEach(actor => {
     actors.innerHTML += `
-      <li>
+      <li class="single-actor">
         <a href="#">${actor.name}</a>
       </li>
     `;
+    this.addEventListener("click", () => {
+      actoreDetails(actor);
+      relatedMovies(actor);
+    });
   });
 
   //The related movies section which includes at least five related movies
@@ -97,6 +101,8 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
     if(item.type === "Trailer")
       trailerSource =  item.source;
   });
+  // Trailer DOM
+  trailer.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${trailerSource}"></iframe>`;
 
   // The movie production company name and logo
   movie.production_companies.forEach(comp => {
@@ -116,8 +122,6 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
     if(item.job === "Director")
       director_name = item.name;
   });
-
-  trailer.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${trailerSource}"></iframe>`;
   
   CONTAINER.innerHTML = `
     <div class="row">
@@ -163,9 +167,7 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
             ${production_companies.innerHTML}
           </ul>
         </div>
-    </div>`;
-    
-  
+    </div>`;  
 };
 // fetch related movies
 const fetchRelatedMovies = async (actorId) => {
@@ -189,7 +191,7 @@ const fetchActor = async (actorId) => {
 };
 // render single actor
 const renderActor = (actor) => {
-
+  console.log('hi there', actor);
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
