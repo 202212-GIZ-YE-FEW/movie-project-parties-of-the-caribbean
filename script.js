@@ -32,7 +32,8 @@ const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const movieCredits = await fetchMovie(movie.id, "credits"); // for actors
   const movieSimilars = await fetchMovie(movie.id, "similar");
-  renderMovie(movieRes, movieCredits, movieSimilars);
+  const movieTrailer = await fetchMovie(movie.id, "trailers");
+  renderMovie(movieRes, movieCredits, movieSimilars, movieTrailer);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -66,9 +67,10 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie, movieCredits, movieSimilars) => {
+const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
   const actors = document.createElement('div');
   const similars = document.createElement('div');
+  const trailer = document.createElement('div');
 
   // The main 5 actors of the movies in the credit section
   movieCredits.cast.slice(0, 5).forEach(actor => {
@@ -87,6 +89,15 @@ const renderMovie = (movie, movieCredits, movieSimilars) => {
       </li>
     `;
   });
+
+  // A trailer that has the movie trailer from youtube
+  let trailerSource;
+  movieTrailer.youtube.find(item => {
+    if(item.type === "Trailer")
+      trailerSource =  item.source;
+  });
+
+  trailer.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${trailerSource}"></iframe>`;
   
   CONTAINER.innerHTML = `
     <div class="row">
@@ -119,6 +130,10 @@ const renderMovie = (movie, movieCredits, movieSimilars) => {
             <ul id="movie-related-movies" class="list-unstyled">
               ${similars.innerHTML}
             </ul>
+        </div>
+        <div class="row">
+            <h3>Trailer:</h3>
+            ${trailer.innerHTML}
         </div>
     </div>`;
     
