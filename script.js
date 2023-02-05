@@ -90,6 +90,9 @@ const renderMovie = (movie, movieCredits) => {
               movie.release_date
             }</p>
             <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
+            <p id="movie-language"><b>Languages:</b> ${movie.spoken_languages.map(lang => {
+              return ` ${lang.english_name}`
+            })}</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
         </div>
