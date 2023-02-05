@@ -8,7 +8,16 @@ const CONTAINER = document.querySelector(".container");
 // Don't touch this function please
 const autorun = async () => {
   const movies = await fetchMovies();
+  // fetch actors
+  // const actors = await fetchActors();
+  // renderActors(actors.results);
+  // ////////////////////////////////
+ 
+
   renderMovies(movies.results);
+  // 
+  
+  
 };
 
 // Don't touch this function please
@@ -76,6 +85,90 @@ const renderMovie = (movie) => {
             <h3>Actors:</h3>
             <ul id="actors" class="list-unstyled"></ul>
     </div>`;
+    
+  
+};
+// fetch related movies
+const fetchRelatedMovies = async (actorId) => {
+console.log('k')
+  const url = constructUrl(`person/${actorId}/movie_credits`);
+  const res = await fetch(url);
+  return res.json();
+};
+// fetch actors 
+const fetchActors = async () => {
+  const url = constructUrl(`person/popular`);
+  const res = await fetch(url);
+  return res.json();
+};
+//  fetch single actor
+const fetchActor = async (actorId) => {
+  
+  const url = constructUrl(`person/${actorId}`);
+  const res = await fetch(url);
+  return res.json();
+};
+// render single actor
+const renderActor = (actor) => {
+
+  CONTAINER.innerHTML = `
+    <div class="row">
+        <div class="col-md-4">
+             <img id="actor-pic" src=${BACKDROP_BASE_URL + actor.profile_path }>
+        </div>
+        <div class="col-md-8">
+            <h2  id="actor-name">${actor.name}</h2>
+            <p id="actor-gender"><b>gender:</b> ${actor.gender}</p>
+            <p id="actor-popularity"><b>popularity:</b> ${actor.popularity} </p>
+            <p id="actor-birthday"><b>birthday:</b> ${actor.birthday} </p>
+            <h3>biography :</h3>
+            <p id="actor-biography ">${actor.biography}</p>
+        </div>
+        
+            <h3>movies the actor participated in:</h3>
+            <ul id="related" class="list-unstyled"></ul>
+    </div>`
+};
+//  single page for actor
+const actoreDetails = async (actor) => {
+  const actorRes = await fetchActor(actor.id);
+  
+  renderActor(actorRes);
+};
+const relatedMovies = async (actor) => {
+  const relatedRes = await fetchRelatedMovies(actor.id);
+
+  renderRelatedMovies(relatedRes.cast);
+};
+// render related movies
+const renderRelatedMovies = (relatedMovies) => {
+  relatedMovies.map((relatedMovie) => {
+    const relatedMovieDiv = document.createElement("div");
+    relatedMovieDiv.innerHTML = `
+        <img src="${BACKDROP_BASE_URL + relatedMovie.poster_path}" alt="${relatedMovie.title
+      } poster">
+        <h3>${relatedMovie.title}</h3>`;
+   
+    const related = document.querySelector('ul#related')
+    console.log("k")
+    related.appendChild(relatedMovieDiv)
+  });
+};
+
+// render actors
+const renderActors = (actors) => {
+  actors.map((actor) => {
+    const actorDiv = document.createElement("div");
+    actorDiv.innerHTML = `
+        <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name
+      } poster">
+        <h3>${actor.name}</h3>`;
+    actorDiv.addEventListener("click", () => {
+      actoreDetails(actor);
+      relatedMovies(actor);
+    });
+    CONTAINER.appendChild(actorDiv);
+  });
 };
 
 document.addEventListener("DOMContentLoaded", autorun);

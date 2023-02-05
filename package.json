@@ -1,0 +1,23 @@
+{
+  "name": "movie-project-parties-of-the-caribbean",
+  "version": "1.0.0",
+  "description": "This is a movie database project, where it shows movies, their casts, ratings, trailers, related movies, genres, and so on.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tailwindcss -i assets/css/tailwind.css -o ./dist/css/tailwind.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/202212-GIZ-YE-FEW/movie-project-parties-of-the-caribbean.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/202212-GIZ-YE-FEW/movie-project-parties-of-the-caribbean/issues"
+  },
+  "homepage": "https://github.com/202212-GIZ-YE-FEW/movie-project-parties-of-the-caribbean#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}
