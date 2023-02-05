@@ -71,6 +71,7 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
   const actors = document.createElement('div');
   const similars = document.createElement('div');
   const trailer = document.createElement('div');
+  const production_companies = document.createElement('div');
 
   // The main 5 actors of the movies in the credit section
   movieCredits.cast.slice(0, 5).forEach(actor => {
@@ -96,6 +97,18 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
     if(item.type === "Trailer")
       trailerSource =  item.source;
   });
+
+  // The movie production company name and logo
+  movie.production_companies.forEach(comp => {
+    production_companies.innerHTML += `
+      <li>
+        <img src="${BACKDROP_BASE_URL + comp.logo_path}" alt="${
+          comp.name
+        } poster">
+            <span>${comp.name}</span> 
+      </li>
+    `;
+  })
 
   trailer.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${trailerSource}"></iframe>`;
   
@@ -134,6 +147,11 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
         <div class="row">
             <h3>Trailer:</h3>
             ${trailer.innerHTML}
+        </div>
+        <div id="movie-production-companies"><b>Production Companies:</b> 
+          <ul>
+            ${production_companies.innerHTML}
+          </ul>
         </div>
     </div>`;
     
