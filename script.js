@@ -108,7 +108,14 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
             <span>${comp.name}</span> 
       </li>
     `;
-  })
+  });
+  
+  // The director name
+  let director_name;
+  movieCredits.crew.find(item => {
+    if(item.job === "Director")
+      director_name = item.name;
+  });
 
   trailer.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${trailerSource}"></iframe>`;
   
@@ -128,6 +135,7 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
             <p id="movie-language"><b>Languages:</b> ${movie.spoken_languages.map(lang => {
               return ` ${lang.english_name}`
             })}</p>
+            <p id="movie-director-name"><b>Director Name:</b> ${director_name}</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
         </div>
