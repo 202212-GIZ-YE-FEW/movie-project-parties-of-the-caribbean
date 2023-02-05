@@ -27,14 +27,35 @@ const constructUrl = (path) => {
   )}`;
 };
 
+const constructUrlFetchMore = (path, page) => {
+  return `${TMDB_BASE_URL}/${path}?api_key=${atob(
+    "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+  )}&page=${page}`;
+};
+
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const movieCredits = await fetchMovie(movie.id, "credits"); // for actors
-  const movieSimilars = await fetchMovie(movie.id, "similar");
+  const movieSimilars = await fetchMovie(movie.id, "similar"); 
+  // const allRelatedMovies = []
+  // if(movieSimilars.total_pages > 1 ){
+  //   allRelatedMovies.push(...movieSimilars.results);
+  //   for(let i=1; i < movieSimilars.total_pages; i++){
+  //     const data = await fetchMore(`movie/${movie.id}/similar`, i);
+  //     allRelatedMovies.push(...data.results);
+  //   }
+  // }
+
   const movieTrailer = await fetchMovie(movie.id, "trailers");
   renderMovie(movieRes, movieCredits, movieSimilars, movieTrailer);
 };
+
+const fetchMore = async (path, page=1) => {
+  const url = constructUrlFetchMore(path, page);
+  const res = await fetch(url);
+  return res.json();
+}
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
@@ -68,32 +89,8 @@ const renderMovies = (movies) => {
 
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
-  const actors = document.createElement('div');
-  const similars = document.createElement('div');
   const trailer = document.createElement('div');
   const production_companies = document.createElement('div');
-
-  // The main 5 actors of the movies in the credit section
-  movieCredits.cast.slice(0, 5).forEach(actor => {
-    actors.innerHTML += `
-      <li class="single-actor">
-        <a href="#">${actor.name}</a>
-      </li>
-    `;
-    this.addEventListener("click", () => {
-      actoreDetails(actor);
-      relatedMovies(actor);
-    });
-  });
-
-  //The related movies section which includes at least five related movies
-  movieSimilars.results.forEach(similar => {
-    similars.innerHTML += `
-      <li>
-        <a href="#">${similar.original_title}</a>
-      </li>
-    `;
-  });
 
   // A trailer that has the movie trailer from youtube
   let trailerSource;
@@ -148,15 +145,11 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
         </div>
         <div class="row">
             <h3>Actors:</h3>
-            <ul id="movie-actors" class="list-unstyled">
-              ${actors.innerHTML}
-            </ul>
+            <ul id="movie-actors" class="list-unstyled"></ul>
         </div>
         <div class="row">
             <h3>Related Movies:</h3>
-            <ul id="movie-related-movies" class="list-unstyled">
-              ${similars.innerHTML}
-            </ul>
+            <ul id="movie-related-movies" class="list-unstyled"></ul>
         </div>
         <div class="row">
             <h3>Trailer:</h3>
@@ -168,6 +161,36 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
           </ul>
         </div>
     </div>`;  
+
+  // The main 5 actors of the movies in the credit section
+  movieCredits.cast.map(actor => {
+    const singleActor = document.createElement('li');
+    singleActor.classList.add('single-actor')
+    singleActor.innerHTML = `
+        <a href="#">${actor.name}</a>
+    `;
+    singleActor.addEventListener("click", () => {
+      actoreDetails(actor);
+      relatedMovies(actor);
+    });
+    const actorsList = document.querySelector('ul#movie-actors');
+    actorsList.appendChild(singleActor);
+  });
+  
+  //The related movies section which includes at least five related movies
+  // Page1
+  movieSimilars.results.forEach(similar => {
+    const singleSimilar = document.createElement('li');
+    singleSimilar.classList.add('single-related-movie')
+    singleSimilar.innerHTML = `
+        <a href="#">${similar.original_title}</a>
+    `;
+    singleSimilar.addEventListener("click", () => {
+      movieDetails(similar);
+    });
+    const similarsList = document.querySelector('ul#movie-related-movies');
+    similarsList.appendChild(singleSimilar);
+  });
 };
 // fetch related movies
 const fetchRelatedMovies = async (actorId) => {
