@@ -30,7 +30,8 @@ const constructUrl = (path) => {
 // You may need to add to this function, definitely don't delete it.
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
-  renderMovie(movieRes);
+  const movieCredits = await fetchMovie(movie.id, "credits"); // for actors
+  renderMovie(movieRes, movieCredits);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -41,8 +42,8 @@ const fetchMovies = async () => {
 };
 
 // Don't touch this function please. This function is to fetch one movie.
-const fetchMovie = async (movieId) => {
-  const url = constructUrl(`movie/${movieId}`);
+const fetchMovie = async (movieId, path="") => {
+  const url = path ? constructUrl(`movie/${movieId}/${path}`): constructUrl(`movie/${movieId}`);
   const res = await fetch(url);
   return res.json();
 };
@@ -64,7 +65,18 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie) => {
+const renderMovie = (movie, movieCredits) => {
+  const actors = document.createElement('div');
+
+  // actors
+  movieCredits.cast.slice(0, 5).forEach(actor => {
+    actors.innerHTML += `
+      <li>
+        <a href="#">${actor.name}</a>
+      </li>
+    `;
+  });
+  
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -82,8 +94,12 @@ const renderMovie = (movie) => {
             <p id="movie-overview">${movie.overview}</p>
         </div>
         </div>
+        <div class="row">
             <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled"></ul>
+            <ul id="actors" class="list-unstyled">
+              ${actors.innerHTML}
+            </ul>
+        </div>
     </div>`;
     
   
