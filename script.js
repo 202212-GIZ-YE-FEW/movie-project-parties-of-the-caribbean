@@ -194,7 +194,6 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
 };
 // fetch related movies
 const fetchRelatedMovies = async (actorId) => {
-console.log('k')
   const url = constructUrl(`person/${actorId}/movie_credits`);
   const res = await fetch(url);
   return res.json();
@@ -214,7 +213,6 @@ const fetchActor = async (actorId) => {
 };
 // render single actor
 const renderActor = (actor) => {
-  console.log('hi there', actor);
   CONTAINER.innerHTML = `
     <div class="row">
         <div class="col-md-4">
@@ -254,7 +252,6 @@ const renderRelatedMovies = (relatedMovies) => {
         <h3>${relatedMovie.title}</h3>`;
    
     const related = document.querySelector('ul#related')
-    console.log("k")
     related.appendChild(relatedMovieDiv)
   });
 };
