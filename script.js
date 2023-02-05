@@ -136,6 +136,8 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
               return ` ${lang.english_name}`
             })}</p>
             <p id="movie-director-name"><b>Director Name:</b> ${director_name}</p>
+            <p id="movie-vote-average"><b>Vote Average:</b> ${movie.vote_average}</p>
+            <p id="movie-vote-count"><b>Vote Count:</b> ${movie.vote_count}</p>
             <h3>Overview:</h3>
             <p id="movie-overview">${movie.overview}</p>
         </div>
