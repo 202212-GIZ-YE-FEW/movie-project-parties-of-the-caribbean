@@ -31,7 +31,8 @@ const constructUrl = (path) => {
 const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const movieCredits = await fetchMovie(movie.id, "credits"); // for actors
-  renderMovie(movieRes, movieCredits);
+  const movieSimilars = await fetchMovie(movie.id, "similar");
+  renderMovie(movieRes, movieCredits, movieSimilars);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -65,14 +66,24 @@ const renderMovies = (movies) => {
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
-const renderMovie = (movie, movieCredits) => {
+const renderMovie = (movie, movieCredits, movieSimilars) => {
   const actors = document.createElement('div');
+  const similars = document.createElement('div');
 
-  // actors
+  // The main 5 actors of the movies in the credit section
   movieCredits.cast.slice(0, 5).forEach(actor => {
     actors.innerHTML += `
       <li>
         <a href="#">${actor.name}</a>
+      </li>
+    `;
+  });
+
+  //The related movies section which includes at least five related movies
+  movieSimilars.results.forEach(similar => {
+    similars.innerHTML += `
+      <li>
+        <a href="#">${similar.original_title}</a>
       </li>
     `;
   });
@@ -85,7 +96,7 @@ const renderMovie = (movie, movieCredits) => {
              }>
         </div>
         <div class="col-md-8">
-            <h2 id="movie-title">${movie.title}</h2>
+            <h2 id="movie-title">${movie.id}, ${movie.title}</h2>
             <p id="movie-release-date"><b>Release Date:</b> ${
               movie.release_date
             }</p>
@@ -99,8 +110,14 @@ const renderMovie = (movie, movieCredits) => {
         </div>
         <div class="row">
             <h3>Actors:</h3>
-            <ul id="actors" class="list-unstyled">
+            <ul id="movie-actors" class="list-unstyled">
               ${actors.innerHTML}
+            </ul>
+        </div>
+        <div class="row">
+            <h3>Related Movies:</h3>
+            <ul id="movie-related-movies" class="list-unstyled">
+              ${similars.innerHTML}
             </ul>
         </div>
     </div>`;
