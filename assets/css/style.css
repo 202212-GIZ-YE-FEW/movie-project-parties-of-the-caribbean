@@ -1,0 +1,59 @@
+:root {
+    --yellow-clr: rgb(234 179 8);
+}
+
+.text-yellow {
+    color: var(--yellow-clr);
+}
+
+.bg-description {
+    position: relative;
+    color: white;
+    overflow-x: hidden;
+}
+
+.bg-description::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -22px;
+    right: -22px;
+    z-index: -1;
+    background-image: url('../images/2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-origin: content-box;
+    filter: blur(30px);
+    -webkit-filter: blur(30px);
+}
+
+.bg-dark {
+    background-color: #111111 !important;
+    transform: translateY(-10px);
+}
+
+#movie-actors img {
+    width: 180px;
+    height: 180px;
+}
+
+#movie-production-companies li {
+    vertical-align: middle;
+}
+
+#movie-production-companies img {
+    height: 60px;
+}
+
+#movie-backdrop {
+    width: 100%;
+}
+
+#actors {
+    margin: 24px 16px 0 0;
+}
+
+#actor-pic {
+    width: 100%;
+}

@@ -1,6 +1,6 @@
 'use strict';
 
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_BASE_URL = "https://api.themoviedb.org/3/";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
@@ -155,8 +155,8 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
             <h3>Trailer:</h3>
             ${trailer.innerHTML}
         </div>
-        <div id="movie-production-companies"><b>Production Companies:</b> 
-          <ul>
+        <div><b>Production Companies:</b> 
+          <ul id="movie-production-companies">
             ${production_companies.innerHTML}
           </ul>
         </div>
