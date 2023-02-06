@@ -20,26 +20,38 @@
                         <img src="./assets/images/Movie_Details_Page_UI.png" alt="" class="w-100">
                     </div>
                     <div class="col-md-7 col-lg-9 d-flex flex-column justify-content-between">
-                        <h3 class="text-4xl font-weight-bolder mb-4">Lorem</h3>
-                        <p>
+                        <h2 id="movie-title" class="text-4xl font-weight-bolder mb-4">${movie.id}, ${movie.title}</h2>
+                        <p id="movie-vote-avg-count">
                             <span>
                                 <i class="fa-solid fa-star text-yellow"></i>
-                                rating
+                                ${movie.vote_average}  ${movie.vote_count}
                             </span>
                         </p>
-                        <p class="sub-title text-capitalize">
-                            <strong>language:</strong>
-                            <span>English</span>
-                        </p>
-                        <p class="sub-title text-capitalize">
+                        <p id="movie-release-date" class="sub-title text-capitalize">
                             <strong>release date:</strong>
-                            <span>English</span>
+                            <span>
+                                ${movie.release_date}
+                            </span>
                         </p>
-                        <p class="sub-title text-capitalize">
-                            <strong>Director:</strong>
-                            <span>folan alfolani</span>
+                        <p id="movie-runtime" class="sub-title text-capitalize">
+                            <strong>runtime:</strong>
+                            <span>
+                                ${movie.runtime} Minutes
+                            </span>
                         </p>
-                        <p class="overview mb-0">
+                        <p id="movie-language" class="sub-title text-capitalize">
+                            <strong>language:</strong>
+                            <span>
+                                ${movie.spoken_languages.map(lang => {
+                                return ` ${lang.english_name}`
+                              })}
+                            </span>
+                        </p>
+                        <p id="movie-director-name" class="sub-title text-capitalize">
+                            <strong>director:</strong>
+                            <span>${director_name}</span>
+                        </p>
+                        <p id="movie-overview" class="overview mb-0">
                             <strong>Overview:</strong>
                             <br>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis rem atque soluta, sit culpa possimus sunt dolor saepe nostrum, non quas aliquam accusantium unde minima dolore accusamus facere veritatis optio. Laboriosam facilis nemo soluta amet, quisquam ab porro sit id quas reprehenderit. Ipsa assumenda cum, dolore, minus repellat quas excepturi laboriosam aspernatur provident molestiae adipisci deserunt nemo, ipsam ratione. Modi culpa rerum consequuntur accusamus ratione quam consectetur repellendus harum dolorum.
@@ -65,6 +77,16 @@
                         </li>
                         <li>
                             <img src="./assets/images/actorjpg.jpg" alt="" class="rounded-circle">
+                            <br>
+                            <span>Alan</span>
+                        </li>
+                        <li>
+                            <img src="./assets/images/actor2jpg.jpg" alt="" class="rounded-circle">
+                            <br>
+                            <span>Alan</span>
+                        </li>
+                        <li>
+                            <img src="./assets/images/actor2jpg.jpg" alt="" class="rounded-circle">
                             <br>
                             <span>Alan</span>
                         </li>
@@ -110,7 +132,7 @@
                     </ul>
                 </div>
                 <div class="row flex-column py-5">
-                    <h4 class="text-capitalize">production companies</h4>
+                    <h4 class="text-capitalize">Related Movies</h4>
                     <ul id="movie-related-movies" class="row justify-content-between text-center list-unstyled my-3">
                         <li class="col-lg-3">
                             <div class="">
