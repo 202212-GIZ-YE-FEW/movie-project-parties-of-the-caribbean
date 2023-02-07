@@ -33,6 +33,64 @@
     transform: translateY(-10px);
 }
 
+/**************** SINGLE MOVIE PAGE ****************/
+.card_effects {
+    background-color: rgba(57, 62, 93, 0.7);
+    padding: 0;
+    overflow: hidden;
+    /* max-width: 350px; */
+    margin: 5px;
+}
+
+.card_effects article {
+    padding: 10%;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+
+.card_effects h2 {
+    color: #fff;
+    font-weight: 800;
+    font-size: 25px;
+    border-bottom: #fff solid 1px;
+}
+
+.card_effects h4 {
+    font-weight: 300;
+    color: #fff;
+    font-size: 16px;
+}
+
+.card_effects img {
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    transition: all 4s ease;
+}
+
+/*hovers*/
+
+.card_effects:hover {
+    cursor: pointer;
+}
+
+.card_effects:hover img {
+    opacity: 0.1;
+    transform: scale(1.5);
+}
+
+.card_effects:hover article {
+    transform: translate(2px, -69px);
+    -webkit-transform: translate(2px, -69px);
+    -moz-transform: translate(2px, -69px);
+    -o-transform: translate(2px, -69px);
+    -ms-transform: translate(2px, -69px);
+}
+
 #movie-actors img {
     width: 180px;
     height: 180px;
