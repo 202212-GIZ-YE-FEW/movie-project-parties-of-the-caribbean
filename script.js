@@ -230,14 +230,13 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
 
   movieSimilars.results.forEach(similar => {
     const singleSimilar = document.createElement('li');
-    singleSimilar.classList.add('col-lg-3');
-    singleSimilar.classList.add('card_effects');
+    singleSimilar.classList.add('card_effects', 'col-sm-6', 'col-md-4', 'col-lg-3');
     singleSimilar.innerHTML = `
       <article class="text-left">
           <h2>${similar.original_title}</h2>
           <h4 class="${voteClass(similar.vote_average)}">${similar.vote_average} %</h4>
       </article>
-      <img src="${BACKDROP_BASE_URL + similar.poster_path}" alt="${similar.original_title} poster" class="img-fluid">
+      <img src="${BACKDROP_BASE_URL + similar.poster_path}" alt="${similar.original_title} poster" class="img-fluid">   
     `;
     singleSimilar.addEventListener("click", () => {
       movieDetails(similar);

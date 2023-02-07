@@ -43,7 +43,7 @@
     padding: 0;
     overflow: hidden;
     /* max-width: 350px; */
-    margin: 5px;
+    margin-block: 10px;
 }
 
 .card_effects article {
@@ -71,6 +71,10 @@
     width: fit-content;
     padding: 2px 15px;
     border-radius: 333px;
+}
+
+#movie-actors h4 {
+    margin-inline: auto;
 }
 
 .card_effects h4.very-low {
