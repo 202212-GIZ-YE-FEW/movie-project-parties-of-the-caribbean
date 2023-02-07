@@ -101,12 +101,12 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
       trailerSource =  item.source;
   });
   // Trailer DOM
-  trailer.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${trailerSource}"></iframe>`;
+  trailer.innerHTML = `<iframe width="100%" height="315" src="https://www.youtube.com/embed/${trailerSource}"></iframe>`;
 
   // The movie production company name and logo
   movie.production_companies.forEach(comp => {
     production_companies.innerHTML += `
-      <li class="col-lg-3">
+      <li class="col-md-6 col-lg-3">
         <div class="bg-white p-1">
           <img src="${BACKDROP_BASE_URL + comp.logo_path}" alt="${comp.name} logo" class="img-fluid">
         </div>
@@ -134,7 +134,7 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
             <p id="movie-vote-avg-count">
                 <span>
                     <i class="fa-solid fa-star text-yellow"></i>
-                    ${movie.vote_average}  ${movie.vote_count}
+                    ${movie.vote_average} |  <i class="fa-solid fa-people-line text-yellow"></i> ${movie.vote_count}
                 </span>
             </p>
             <p id="movie-release-date" class="sub-title text-capitalize">
@@ -183,13 +183,13 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
         <h4 class="text-capitalize">Related Movies</h4>
         <ul id="movie-related-movies" class="row justify-content-between text-center list-unstyled my-3"></ul>
       </div>
-      <div class="row">
-        <h3>Trailer:</h3>
+      <div class="row flex-column py-5">
+        <h3>Trailer:</h3><br />
         ${trailer.innerHTML}
       </div>
       <div class="row flex-column py-5">
         <h4 class="text-capitalize">production companies</h4>
-        <ul id="movie-production-companies" class="row justify-content-between text-center list-unstyled my-3"> 
+        <ul id="movie-production-companies" class="row justify-content-center text-center list-unstyled my-3"> 
           ${production_companies.innerHTML}
         </ul>
       </div>
@@ -198,15 +198,15 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
   `; 
 
   // The main 5 actors of the movies in the credit section
-  movieCredits.cast.map(actor => {
+  movieCredits.cast.slice(0, 5).map(actor => {
     const singleActor = document.createElement('li');
-    singleActor.classList.add('col-lg-3');
-    singleActor.classList.add('my-4');
+    singleActor.classList.add('card_effects', 'my-4', 'col-sm-5', 'col-md-3', 'col-lg-2');
     singleActor.innerHTML = `
         <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} profile" class="rounded-circle">
-        <br>
-        <a href="#">${actor.name}</a>
-    `;
+        <div class="text-center">
+          <h4 class="py-2">${actor.name}</h4>
+        </div>
+      `;
     singleActor.addEventListener("click", () => {
       actoreDetails(actor);
       relatedMovies(actor);
@@ -217,6 +217,17 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
   
   //The related movies section which includes at least five related movies
   // Page1
+  const voteClass = (vote) => {
+    if (vote >= 8.5)
+      return `high`;
+    else if (vote >= 7)
+      return `medium`;
+    else if (vote >= 5)
+      return `low`;
+    else
+      return `very-low`;
+  };
+
   movieSimilars.results.forEach(similar => {
     const singleSimilar = document.createElement('li');
     singleSimilar.classList.add('col-lg-3');
@@ -224,7 +235,7 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
     singleSimilar.innerHTML = `
       <article class="text-left">
           <h2>${similar.original_title}</h2>
-          <h4>${similar.vote_average} %</h4>
+          <h4 class="${voteClass(similar.vote_average)}">${similar.vote_average} %</h4>
       </article>
       <img src="${BACKDROP_BASE_URL + similar.poster_path}" alt="${similar.original_title} poster" class="img-fluid">
     `;

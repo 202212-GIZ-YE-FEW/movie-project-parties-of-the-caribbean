@@ -34,8 +34,12 @@
 }
 
 /**************** SINGLE MOVIE PAGE ****************/
+.row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
 .card_effects {
-    background-color: rgba(57, 62, 93, 0.7);
     padding: 0;
     overflow: hidden;
     /* max-width: 350px; */
@@ -43,9 +47,12 @@
 }
 
 .card_effects article {
+    width: 100%;
     padding: 10%;
     position: absolute;
     bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1;
     transition: all 0.5s ease;
 }
@@ -58,36 +65,61 @@
 }
 
 .card_effects h4 {
-    font-weight: 300;
+    font-weight: 500;
     color: #fff;
     font-size: 16px;
+    width: fit-content;
+    padding: 2px 15px;
+    border-radius: 333px;
+}
+
+.card_effects h4.very-low {
+    background-color: red;
+    color: white;
+}
+
+.card_effects h4.low {
+    background-color: yellow;
+    color: black;
+}
+
+.card_effects h4.medium {
+    background-color: orange;
+    color: black;
+}
+
+.card_effects h4.high {
+    background-color: green;
+    color: white;
 }
 
 .card_effects img {
-    width: 100%;
+    width: 94%;
     top: 0;
     left: 0;
     opacity: 0.4;
     transition: all 4s ease;
 }
 
+#movie-actors .card_effects img {
+    opacity: 1;
+}
+
 /*hovers*/
 
 .card_effects:hover {
     cursor: pointer;
+    overflow: hidden;
 }
 
 .card_effects:hover img {
     opacity: 0.1;
+    width: 100%;
     transform: scale(1.5);
 }
 
 .card_effects:hover article {
-    transform: translate(2px, -69px);
-    -webkit-transform: translate(2px, -69px);
-    -moz-transform: translate(2px, -69px);
-    -o-transform: translate(2px, -69px);
-    -ms-transform: translate(2px, -69px);
+    transform: translate(-50%, -50px);
 }
 
 #movie-actors img {
