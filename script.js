@@ -219,13 +219,13 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
   // Page1
   const voteClass = (vote) => {
     if (vote >= 8.5)
-      return `high`;
+      return 'high';
     else if (vote >= 7)
-      return `medium`;
+      return 'medium';
     else if (vote >= 5)
-      return `low`;
+      return 'low';
     else
-      return `very-low`;
+      return 'very-low';
   };
 
   movieSimilars.results.forEach(similar => {
