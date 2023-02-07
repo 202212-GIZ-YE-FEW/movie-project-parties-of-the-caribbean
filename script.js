@@ -1,9 +1,11 @@
 'use strict';
 
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_BASE_URL = "https://api.themoviedb.org/3/";
 const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
 const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 const CONTAINER = document.querySelector(".container");
+const SINGLE_MOVIE_CONTENT = document.createElement("div");
+document.body.appendChild(SINGLE_MOVIE_CONTENT);
 
 // Don't touch this function please
 const autorun = async () => {
@@ -104,11 +106,11 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
   // The movie production company name and logo
   movie.production_companies.forEach(comp => {
     production_companies.innerHTML += `
-      <li>
-        <img src="${BACKDROP_BASE_URL + comp.logo_path}" alt="${
-          comp.name
-        } poster">
-            <span>${comp.name}</span> 
+      <li class="col-lg-3">
+        <div class="bg-white p-1">
+          <img src="${BACKDROP_BASE_URL + comp.logo_path}" alt="${comp.name} logo" class="img-fluid">
+        </div>
+        <span>${comp.name}</span>
       </li>
     `;
   });
@@ -119,54 +121,90 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
     if(item.job === "Director")
       director_name = item.name;
   });
-  
-  CONTAINER.innerHTML = `
-    <div class="row">
-        <div class="col-md-4">
-             <img id="movie-backdrop" src=${
-               BACKDROP_BASE_URL + movie.backdrop_path
-             }>
-        </div>
-        <div class="col-md-8">
-            <h2 id="movie-title">${movie.id}, ${movie.title}</h2>
-            <p id="movie-release-date"><b>Release Date:</b> ${
-              movie.release_date
-            }</p>
-            <p id="movie-runtime"><b>Runtime:</b> ${movie.runtime} Minutes</p>
-            <p id="movie-language"><b>Languages:</b> ${movie.spoken_languages.map(lang => {
-              return ` ${lang.english_name}`
-            })}</p>
-            <p id="movie-director-name"><b>Director Name:</b> ${director_name}</p>
-            <p id="movie-vote-average"><b>Vote Average:</b> ${movie.vote_average}</p>
-            <p id="movie-vote-count"><b>Vote Count:</b> ${movie.vote_count}</p>
-            <h3>Overview:</h3>
-            <p id="movie-overview">${movie.overview}</p>
-        </div>
-        </div>
-        <div class="row">
-            <h3>Actors:</h3>
-            <ul id="movie-actors" class="list-unstyled"></ul>
-        </div>
-        <div class="row">
-            <h3>Related Movies:</h3>
-            <ul id="movie-related-movies" class="list-unstyled"></ul>
-        </div>
-        <div class="row">
-            <h3>Trailer:</h3>
-            ${trailer.innerHTML}
-        </div>
-        <div id="movie-production-companies"><b>Production Companies:</b> 
-          <ul>
-            ${production_companies.innerHTML}
-          </ul>
-        </div>
-    </div>`;  
+  CONTAINER.innerHTML = "";
+  SINGLE_MOVIE_CONTENT.innerHTML = `
+  <div class="bg-description">
+    <div class="container">
+      <div class="row py-5">
+          <div class="col-md-4 col-lg-3">
+            <img id="movie-backdrop" src=${BACKDROP_BASE_URL + movie.poster_path} alt="${movie.title} poster" class="w-100">
+          </div>
+          <div class="col-md-8 col-lg-9 d-flex flex-column justify-content-between">
+            <h2 id="movie-title" class="text-4xl font-weight-bolder mb-4">${movie.id}, ${movie.title}</h2>
+            <p id="movie-vote-avg-count">
+                <span>
+                    <i class="fa-solid fa-star text-yellow"></i>
+                    ${movie.vote_average}  ${movie.vote_count}
+                </span>
+            </p>
+            <p id="movie-release-date" class="sub-title text-capitalize">
+                <strong>release date:</strong>
+                <span>
+                    ${movie.release_date}
+                </span>
+            </p>
+            <p id="movie-runtime" class="sub-title text-capitalize">
+                <strong>runtime:</strong>
+                <span>
+                    ${movie.runtime} Minutes
+                </span>
+            </p>
+            <p id="movie-language" class="sub-title text-capitalize">
+                <strong>language:</strong>
+                <span>
+                    ${movie.spoken_languages.map(lang => {
+                    return ` ${lang.english_name}`
+                  })}
+                </span>
+            </p>
+            <p id="movie-director-name" class="sub-title text-capitalize">
+                <strong>director:</strong>
+                <span>${director_name}</span>
+            </p>
+            <p id="movie-overview" class="overview mb-0">
+                <strong>Overview:</strong>
+                <br>
+                ${movie.overview}
+            </p>
+          </div>
+      </div>
+    </div>
+  </div>`; 
+  document.querySelector(".bg-description").style.setProperty('--background-image', `linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(21, 18, 18, 0.7), rgba(255, 212, 160, 0.7)), url(${BACKDROP_BASE_URL + movie.poster_path})`);
+  SINGLE_MOVIE_CONTENT.innerHTML += `
+  <div class="bg-dark text-white">
+    <div class="container">
+      <div class="row flex-column py-5">
+        <h4 class="text-capitalize">top cast</h4>
+        <ul id="movie-actors" class="row justify-content-between text-center list-unstyled my-3">
+        </ul>
+      </div>
+      <div class="row flex-column py-5">
+        <h4 class="text-capitalize">Related Movies</h4>
+        <ul id="movie-related-movies" class="row justify-content-between text-center list-unstyled my-3"></ul>
+      </div>
+      <div class="row">
+        <h3>Trailer:</h3>
+        ${trailer.innerHTML}
+      </div>
+      <div class="row flex-column py-5">
+        <h4 class="text-capitalize">production companies</h4>
+        <ul id="movie-production-companies" class="row justify-content-between text-center list-unstyled my-3"> 
+          ${production_companies.innerHTML}
+        </ul>
+      </div>
+    </div>
+  </div>
+  `; 
 
   // The main 5 actors of the movies in the credit section
   movieCredits.cast.map(actor => {
     const singleActor = document.createElement('li');
-    singleActor.classList.add('single-actor')
+    singleActor.classList.add('col-lg-3');
+    singleActor.classList.add('my-4');
     singleActor.innerHTML = `
+        <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} profile" class="rounded-circle">
+        <br>
         <a href="#">${actor.name}</a>
     `;
     singleActor.addEventListener("click", () => {
@@ -181,9 +219,14 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
   // Page1
   movieSimilars.results.forEach(similar => {
     const singleSimilar = document.createElement('li');
-    singleSimilar.classList.add('single-related-movie')
+    singleSimilar.classList.add('col-lg-3');
+    singleSimilar.classList.add('card_effects');
     singleSimilar.innerHTML = `
-        <a href="#">${similar.original_title}</a>
+      <article class="text-left">
+          <h2>${similar.original_title}</h2>
+          <h4>${similar.vote_average} %</h4>
+      </article>
+      <img src="${BACKDROP_BASE_URL + similar.poster_path}" alt="${similar.original_title} poster" class="img-fluid">
     `;
     singleSimilar.addEventListener("click", () => {
       movieDetails(similar);
@@ -206,7 +249,6 @@ const fetchActors = async () => {
 };
 //  fetch single actor
 const fetchActor = async (actorId) => {
-  
   const url = constructUrl(`person/${actorId}`);
   const res = await fetch(url);
   return res.json();
@@ -234,7 +276,6 @@ const renderActor = (actor) => {
 //  single page for actor
 const actoreDetails = async (actor) => {
   const actorRes = await fetchActor(actor.id);
-  
   renderActor(actorRes);
 };
 const relatedMovies = async (actor) => {
