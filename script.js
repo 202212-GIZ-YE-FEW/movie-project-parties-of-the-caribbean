@@ -9,24 +9,18 @@ const SINGLE_MOVIE_CONTENT = document.createElement("div");
 document.body.appendChild(SINGLE_MOVIE_CONTENT);
 
 const singleActor = document.createElement("div");
-
 document.body.appendChild(singleActor);
 // Don't touch this function please
-// const autorun = async () => {
-  // const movies = await fetchMovies();
-  // fetch actors
-  // const actors = await fetchActors();
-  // renderActors(actors.results);
-  // ////////////////////////////////
+const autorun = async () => {
+  const movies = await fetchMovies();
+   renderMovies(movies.results);
 
-  renderMovies(movies.results);
-
-
+};
 
 
 // };
 const actorsFun = async () => {
-  // const movies = await fetchMovies();
+  
   // fetch actors
   const actors = await fetchActors();
   renderActors(actors.results);

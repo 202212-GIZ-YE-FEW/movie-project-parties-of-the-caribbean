@@ -57,3 +57,110 @@ border: 2px solid white ;
         -o-transform: translate(2px, -69px);
         -ms-transform: translate(2px, -69px);
 }
+/**************** SINGLE MOVIE PAGE ****************/
+.row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.card_effects {
+    padding: 0;
+    overflow: hidden;
+    /* max-width: 350px; */
+    margin-block: 10px;
+}
+
+.card_effects article {
+    width: 100%;
+    padding: 10%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+
+.card_effects h2 {
+    color: #fff;
+    font-weight: 800;
+    font-size: 25px;
+}
+
+.card_effects h4 {
+    font-weight: 500;
+    color: #fff;
+    font-size: 16px;
+    width: fit-content;
+    padding: 2px 15px;
+    border-radius: 333px;
+}
+
+#movie-actors h4 {
+    margin-inline: auto;
+}
+
+.card_effects h4.very-low {
+    background-color: red;
+    color: white;
+}
+
+.card_effects h4.low {
+    background-color: yellow;
+    color: black;
+}
+
+.card_effects h4.medium {
+    background-color: orange;
+    color: black;
+}
+
+.card_effects h4.high {
+    background-color: green;
+    color: white;
+}
+
+.card_effects img {
+    width: 94%;
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    transition: all 4s ease;
+}
+
+#movie-actors .card_effects img {
+    opacity: 1;
+}
+
+/*hovers*/
+
+.card_effects:hover {
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.card_effects:hover img {
+    opacity: 0.1;
+    width: 100%;
+    transform: scale(1.5);
+}
+
+.card_effects:hover article {
+    transform: translate(-50%, -50px);
+}
+
+#movie-actors img {
+    width: 180px;
+    height: 180px;
+}
+
+#movie-production-companies li {
+    vertical-align: middle;
+}
+
+#movie-production-companies img {
+    height: 60px;
+}
+
+
