@@ -4,11 +4,10 @@
 body{
 background-color: black;
 }
-.container {
-    padding-top: 32px;
 
 
-}
+
+
 
 #actors {
     /* margin: 24px 16px 0 0; */
@@ -23,7 +22,16 @@ border: none;
 cursor: pointer;
 border: 2px solid white ;
 }
-.bg-description{
+
+:root {
+    --yellow-clr: rgb(234 179 8);
+}
+
+.text-yellow {
+    color: var(--yellow-clr);
+}
+
+.bg-description {
     position: relative;
     color: white;
     overflow-x: hidden;
