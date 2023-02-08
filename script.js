@@ -17,9 +17,7 @@ const autorun = async () => {
  
 
   renderMovies(movies.results);
-  // 
-  
-  
+
 };
 
 // Don't touch this function please
@@ -298,8 +296,7 @@ const renderRelatedMovies = (relatedMovies) => {
   relatedMovies.map((relatedMovie) => {
     const relatedMovieDiv = document.createElement("div");
     relatedMovieDiv.innerHTML = `
-        <img src="${BACKDROP_BASE_URL + relatedMovie.poster_path}" alt="${relatedMovie.title
-      } poster">
+        <img src="${BACKDROP_BASE_URL + relatedMovie.poster_path}" alt="${relatedMovie.title} poster">
         <h3>${relatedMovie.title}</h3>`;
    
     const related = document.querySelector('ul#related')
