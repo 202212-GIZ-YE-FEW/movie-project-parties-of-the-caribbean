@@ -43,3 +43,19 @@ border: 2px solid white ;
     filter: blur(30px);
     --webkit-filter: blur(30px);
 }
+.title{
+    font-weight: 800;
+    font-size: 25px;
+    padding: 10%;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+.title:hover{
+    transform: translate(2px, -69px);
+        -webkit-transform: translate(2px, -69px);
+        -moz-transform: translate(2px, -69px);
+        -o-transform: translate(2px, -69px);
+        -ms-transform: translate(2px, -69px);
+}
