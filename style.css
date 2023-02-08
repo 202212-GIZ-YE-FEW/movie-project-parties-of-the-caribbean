@@ -1,3 +1,18 @@
+#movie-backdrop {
+    width: 100%;
+}
+body{
+background-color: black;
+}
+
+.actorList{
+border: none;
+}
+.actorList:hover{
+cursor: pointer;
+border: 2px solid white ;
+}
+
 :root {
     --yellow-clr: rgb(234 179 8);
 }
@@ -11,11 +26,10 @@
     color: white;
     overflow-x: hidden;
 }
-
-.bg-description::after {
+.bg-description::after{
     content: "";
     position: absolute;
-    top: 0;
+    top:0;
     bottom: 0;
     left: -22px;
     right: -22px;
@@ -24,15 +38,25 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center right;
-    filter: blur(10px);
-    -webkit-filter: blur(10px);
+    filter: blur(30px);
+    --webkit-filter: blur(30px);
 }
-
-.bg-dark {
-    background-color: #292929 !important;
-    transform: translateY(-10px);
+.title{
+    font-weight: 800;
+    font-size: 25px;
+    padding: 10%;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    transition: all 0.5s ease;
 }
-
+.title:hover{
+    transform: translate(2px, -69px);
+        -webkit-transform: translate(2px, -69px);
+        -moz-transform: translate(2px, -69px);
+        -o-transform: translate(2px, -69px);
+        -ms-transform: translate(2px, -69px);
+}
 /**************** SINGLE MOVIE PAGE ****************/
 .row {
     margin-right: 0 !important;
@@ -139,14 +163,4 @@
     height: 60px;
 }
 
-#movie-backdrop {
-    width: 100%;
-}
 
-#actors {
-    margin: 24px 16px 0 0;
-}
-
-#actor-pic {
-    width: 100%;
-}
