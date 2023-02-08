@@ -1,9 +1,6 @@
 #movie-backdrop {
     width: 100%;
 }
-body{
-background-color: black;
-}
 
 .actorList{
 border: none;
@@ -57,11 +54,98 @@ border: 2px solid white ;
         -o-transform: translate(2px, -69px);
         -ms-transform: translate(2px, -69px);
 }
+/* about */
+.ico-div {
+    display: flex;
+}
+.ico-div img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 3px solid;
+    margin: 15px;
+}
+.ico-div img:hover {
+    background-color: chartreuse;
+}
+.ico-div p {
+    margin:auto;
+}
+.team .team-carousel, .team .team-slider {
+    overflow: hidden;
+  }
+  .team .team-item {
+    box-sizing: content-box;
+    padding: 30px 30px 0 30px;
+    margin: 30px 15px;
+    text-align: center;
+    min-height: 350px;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+  }
+  .team .team-item .team-img {
+    width: 90px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    margin: 0 auto;
+  }
+  .team .team-item h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+    color: #111;
+  }
+  .team .team-item h4 {
+    font-size: 14px;
+    color: #999;
+    margin: 0;
+  }
+  .team .team-item .quote-icon-left, .team .team-item .quote-icon-right {
+    color: #fedac0;
+    font-size: 26px;
+  }
+  .team .team-item .quote-icon-left {
+    display: inline-block;
+    left: -5px;
+    position: relative;
+  }
+  .team .team-item .quote-icon-right {
+    display: inline-block;
+    right: -5px;
+    position: relative;
+    top: 10px;
+  }
+  .team .team-item p {
+    font-style: italic;
+    margin: 0 auto 15px auto;
+  }
+  .team .swiper-pagination {
+    margin-top: 20px;
+    position: relative;
+  }
+  .team .swiper-pagination .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    opacity: 1;
+    border: 1px solid #ef6603;
+  }
+  .team .swiper-pagination .swiper-pagination-bullet-active {
+    background-color: #ef6603;
+  }
+
+
 /**************** SINGLE MOVIE PAGE ****************/
 .row {
     margin-right: 0 !important;
     margin-left: 0 !important;
 }
+
+.logo img {
+    height: 100px;
+    filter: brightness(9);
+    padding: 0;
+    margin-left: 10px;
+  }
 
 .card_effects {
     padding: 0;
@@ -163,4 +247,223 @@ border: 2px solid white ;
     height: 60px;
 }
 
+
+@font-face {
+    font-family:title ;
+    src: url(28\ Days\ Later.ttf);
+}
+/* Custom default button */
+.btn-light,
+.btn-light:hover,
+.btn-light:focus {
+    border-radius: 0px;
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
+}
+
+.active{
+    font-weight: 600;
+  }
+
+html{
+    min-height: 100vh;
+}
+
+/*
+ * Base structure
+ */
+
+body {
+  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+  min-height: 100%;
+}
+
+a:hover{
+    cursor: pointer;
+}
+
+/* first container */
+.cover-container {
+  max-width: 100%;
+  min-height: 100vh;
+  background: url("coverBG.png");
+  background-size: cover;
+}
+
+/* center dev */
+main{
+    padding-left: 80px;
+}
+main H1{
+ font-family: title;
+ font-size: 80px;
+}
+main p{
+   max-width: 900px;
+   font-size: 1.45rem !important;
+   }
+
+
+
+ /* Header */
+
+
+ header .nav-cont{
+    padding: 0px 80px 0px 70px;
+  }
+  
+
+  header .myNav{
+    background-color: transparent !important;
+    padding: 0px;
+    margin: 0px;
+   
+  }
+
+.fixed-top{
+    background-color:#161B22;
+    padding: 20px;
+ }
+ .fixed-top-no-home{
+    background-color:#161B22;
+    padding: 20px;
+ }
+ .no-home{
+    min-height: 80px;
+    }
+  header .myNav-list{
+    padding-left: 0px;
+  }
+
+  header .myNav ul li{
+    margin-right: 20px;
+  }
+header .searchGroup{
+    background-color: transparent !important;
+}
+ header .input-group-append{
+    margin-left: -40px !important;
+    margin: 1px;
+    background-color: transparent !important;
+ }
+
+ header .searchGroup .input-group{
+    border-radius: 40px;
+    overflow: hidden;
+    background-color: transparent !important;
+ }
+
+
+ header .searchGroup .input-group input ,header .searchGroup .input-group button {
+    background-color: #1F242B!important;
+    border: none !important ;
+ }
+  
+
+
+/*  movies */
+.movies{
+    padding: 80px 120px;
+    margin: 0px;
+    min-width: 100%;
+}
+
+.movies h2{
+    margin-bottom: 20px;
+}
+.movies ul {
+    display: flex;
+    flex-direction: row;
+    padding-left: 2px;
+    margin-bottom: 40px;
+}
+
+.movies ul li{
+    margin-right: 20px;
+   list-style: none;
+}
+.movies col {
+    padding: 0px !important;
+}
+.movies ul li a{
+    color: rgba(248, 249, 250, 0.65);
+    text-decoration: none;
+
+}
+
+
+.movies ul li a.active{
+    color: #fff;
+
+}
+.movies-Container{
+    /* gap: 2%; */
+}
+.movies .card{
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+}
+
+.movies .card div{
+    position: absolute;
+    background-color: rgba(0, 0, 0,0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.movies-Container .card:hover .card-body, .movies-Container .card.hover .card-body { display: flex; }
+
+
+/* Footer */
+
+footer{
+    background-color: #010409;
+    padding-top: 40px;
+    padding-left: 120px;
+    padding-right: 120px;
+    
+}
+footer h2{
+    margin-bottom: 40px;
+}
+Footer .our-team{
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+ 
+    
+}
+
+Footer .our-team .card {
+   
+    padding: 0px 30px;
+    height: 310px;
+  
+    border-radius: 0px 20px !important;
+    text-align: center;
+    overflow: hidden;
+    background-color: #0D1117;
+}
+
+Footer .our-team .card p{
+    color: #adb5bd;
+}
+
+Footer .our-team .card img{
+    height: 100px;
+    max-width: 100px;
+    border-radius: 50% !important;
+    margin: auto;
+    border-radius: 50% !important;
+    margin-top: 30px;
+}
+
+Footer .lastFooter{
+    background-color: #000;
+    padding: 15px;
+}
 
