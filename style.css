@@ -1,152 +1,114 @@
-:root {
-    --yellow-clr: rgb(234 179 8);
+
+@font-face {
+    font-family:title ;
+    src: url(28\ Days\ Later.ttf);
+}
+/* Custom default button */
+.btn-light,
+.btn-light:hover,
+.btn-light:focus {
+    border-radius: 0px;
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
 }
 
-.text-yellow {
-    color: var(--yellow-clr);
+.active{
+    font-weight: 600;
+  }
+
+html{
+    min-height: 100vh;
 }
 
-.bg-description {
-    position: relative;
-    color: white;
-    overflow-x: hidden;
+/*
+ * Base structure
+ */
+
+body {
+  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+  min-height: 100%;
 }
 
-.bg-description::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -22px;
-    right: -22px;
-    z-index: -1;
-    background-image: var(--background-image);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center right;
-    filter: blur(10px);
-    -webkit-filter: blur(10px);
-}
-
-.bg-dark {
-    background-color: #292929 !important;
-    transform: translateY(-10px);
-}
-
-/**************** SINGLE MOVIE PAGE ****************/
-.row {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-}
-
-.card_effects {
-    padding: 0;
-    overflow: hidden;
-    /* max-width: 350px; */
-    margin-block: 10px;
-}
-
-.card_effects article {
-    width: 100%;
-    padding: 10%;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    transition: all 0.5s ease;
-}
-
-
-.card_effects h2 {
-    color: #fff;
-    font-weight: 800;
-    font-size: 25px;
-}
-
-.card_effects h4 {
-    font-weight: 500;
-    color: #fff;
-    font-size: 16px;
-    width: fit-content;
-    padding: 2px 15px;
-    border-radius: 333px;
-}
-
-#movie-actors h4 {
-    margin-inline: auto;
-}
-
-.card_effects h4.very-low {
-    background-color: red;
-    color: white;
-}
-
-.card_effects h4.low {
-    background-color: yellow;
-    color: black;
-}
-
-.card_effects h4.medium {
-    background-color: orange;
-    color: black;
-}
-
-.card_effects h4.high {
-    background-color: green;
-    color: white;
-}
-
-.card_effects img {
-    width: 94%;
-    top: 0;
-    left: 0;
-    opacity: 0.4;
-    transition: all 4s ease;
-}
-
-#movie-actors .card_effects img {
-    opacity: 1;
-}
-
-/*hovers*/
-
-.card_effects:hover {
+a:hover{
     cursor: pointer;
+}
+/* first Div */
+
+.cover-container {
+  max-width: 100%;
+  min-height: 100vh;
+  background: url("coverBG.png");
+  background-size: cover;
+}
+
+/* center dev */
+main{
+    padding-left: 80px;
+}
+main H1{
+ font-family: title;
+ font-size: 80px;
+}
+main p{
+   max-width: 900px;
+   font-size: 1.45rem !important;
+   }
+
+
+
+ /* Header */
+
+
+ header .nav-cont{
+    padding: 0px 80px 0px 70px;
+  }
+  
+
+  header .myNav{
+    background-color: transparent !important;
+    padding: 0px;
+    margin: 0px;
+   
+  }
+
+.fixed-top{
+    background-color:#161B22;
+    padding: 20px;
+ }
+ .fixed-top-no-home{
+    background-color:#161B22;
+    padding: 20px;
+ }
+ .no-home{
+    min-height: 80px;
+    }
+  header .myNav-list{
+    padding-left: 0px;
+  }
+
+  header .myNav ul li{
+    margin-right: 20px;
+  }
+header .searchGroup{
+    background-color: transparent !important;
+}
+ header .input-group-append{
+    margin-left: -40px !important;
+    margin: 1px;
+    background-color: transparent !important;
+ }
+
+ header .searchGroup .input-group{
+    border-radius: 40px;
     overflow: hidden;
-}
+    background-color: transparent !important;
+ }
 
-.card_effects:hover img {
-    opacity: 0.1;
-    width: 100%;
-    transform: scale(1.5);
-}
 
-.card_effects:hover article {
-    transform: translate(-50%, -50px);
-}
+ header .searchGroup .input-group input ,header .searchGroup .input-group button {
+    background-color: #1F242B!important;
+    border: none !important ;
+ }
+  
 
-#movie-actors img {
-    width: 180px;
-    height: 180px;
-}
-
-#movie-production-companies li {
-    vertical-align: middle;
-}
-
-#movie-production-companies img {
-    height: 60px;
-}
-
-#movie-backdrop {
-    width: 100%;
-}
-
-#actors {
-    margin: 24px 16px 0 0;
-}
-
-#actor-pic {
-    width: 100%;
-}
