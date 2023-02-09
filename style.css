@@ -213,14 +213,14 @@ footer h2 {
     margin-bottom: 40px;
 }
 
-Footer .our-team {
+.our-team {
     flex-wrap: wrap;
     margin-bottom: 40px;
 
 
 }
 
-Footer .our-team .card {
+.our-team .card {
     padding: 0px 30px;
     border-radius: 0px 20px !important;
     text-align: center;
@@ -228,11 +228,11 @@ Footer .our-team .card {
     background-color: #0D1117;
 }
 
-Footer .our-team .card p {
+.our-team .card p {
     color: #adb5bd;
 }
 
-Footer .our-team .card img {
+.our-team .card img {
     height: 100px;
     max-width: 100px;
     border-radius: 50% !important;
