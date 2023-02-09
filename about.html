@@ -39,33 +39,22 @@
                             <div class="myNav-list collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a
-                                            class="nav-link active"
-                                            aria-current="page"
-                                            href="/"
-                                            onclick="renderHome();"
-                                        >
-                                            Home
-                                        </a
-                    >
+                                        <a class="nav-link active" aria-current="page" onclick="renderHome();">Home</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a
                                             class="nav-link dropdown-toggle"
-                                            href="#"
                                             role="button"
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                         >
                                             Movies
-                                        </a
-                    >
+                                        </a>
                                         <ul class="dropdown-menu" id="movies-list"></ul>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a
                                             class="nav-link dropdown-toggle"
-                                            href="#"
                                             role="button"
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
@@ -75,23 +64,32 @@
                                         <ul class="dropdown-menu" id="TV-list"></ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Actors</a>
+                                        <a class="nav-link" onclick="actorsFun()">Actors</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">About</a>
+                                        <a class="nav-link" href="about.html">About</a>
                                     </li>
                                 </ul>
-                                <form class="d-flex" role="search">
-                                    <input
-                                        class="form-control me-2"
-                                        type="search"
-                                        placeholder="Search"
-                                        aria-label="Search"
-                                    >
-                                    <button class="btn btn-outline-success" type="submit">
-                                        Search
-                                    </button>
-                                </form>
+                                <div class="searchGroup col-md-2">
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control border-end-0 border"
+                                            type="search"
+                                            placeholder="search"
+                                            id="search"
+                                        >
+                                        <span class="input-group-append">
+                                            <button class="btn btn-outline-secondary bg-white border-start-0 border-bottom-0 border ms-n5" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                            <div class="searchRes" id="searchRes">
+                                                <!-- <div class="result-Item d-flex">
+                                <img src="m.jpg" height="60px" width="60px" alt="">
+                                <p>asdasd</p>
+                              </div> --></div>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </nav>
