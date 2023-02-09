@@ -432,10 +432,8 @@ Footer .lastFooter {
 }
 
 .logo img {
-    height: 100px;
     filter: brightness(9);
     padding: 0;
-    margin-left: 10px;
 }
 
 .card_effects {
