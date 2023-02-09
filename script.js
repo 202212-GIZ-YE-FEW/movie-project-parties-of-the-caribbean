@@ -68,7 +68,6 @@ const fetchMovies = async (path) => {
 };
 
 const renderMovies = async (movies,container) => {
- 
   movies.map(async(movie) => {
     let movieDiv= await generateMovie(movie);
     // container.innerHTML+=movieDiv;
@@ -94,16 +93,7 @@ async function getMore (movie){
 
 
 const generateMovie= async (movie)=>{
-
-  
   let y =await getMore(movie);
-  
-
-
-
-
-
-
   const m=document.createElement("div");
   m.classList.add("col-lg-4");
   m.classList.add("col-md-6");
@@ -130,7 +120,8 @@ const generateMovie= async (movie)=>{
           out+="</span></div></div>";
   m.innerHTML=out;
   m.addEventListener('click', function(){
-    movieDetails(movie);
+      noHomePage(true);
+      movieDetails(movie);
   });
   return m;
 }
@@ -210,15 +201,6 @@ const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   const movieCredits = await fetchMovie(movie.id, "credits"); // for actors
   const movieSimilars = await fetchMovie(movie.id, "similar"); 
-  // const allRelatedMovies = []
-  // if(movieSimilars.total_pages > 1 ){
-  //   allRelatedMovies.push(...movieSimilars.results);
-  //   for(let i=1; i < movieSimilars.total_pages; i++){
-  //     const data = await fetchMore(`movie/${movie.id}/similar`, i);
-  //     allRelatedMovies.push(...data.results);
-  //   }
-  // }
-  noHomePage(true);
   const movieTrailer = await fetchMovie(movie.id, "trailers");
   renderMovie(movieRes, movieCredits, movieSimilars, movieTrailer);
 };
@@ -378,14 +360,25 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
 
   movieSimilars.results.forEach(similar => {
     const singleSimilar = document.createElement('li');
-    singleSimilar.classList.add('card_effects', 'col-sm-6', 'col-md-4', 'col-lg-3');
-    singleSimilar.innerHTML = `
-      <article class="text-left">
-          <h2>${similar.original_title}</h2>
-          <h4 class="${voteClass(similar.vote_average)}">${similar.vote_average} %</h4>
-      </article>
-      <img src="${BACKDROP_BASE_URL + similar.poster_path}" alt="${similar.original_title} poster" class="img-fluid">   
-    `;
+    singleSimilar.classList.add('col-sm-6', 'col-md-4');
+    let out=`
+    <div class="card my-3">
+        <img src="${BACKDROP_BASE_URL + similar.backdrop_path}"
+          class="card-img-top" alt="${similar.title}">
+        <div class="card-body text-center w-100 px-4">
+        <h5 class="card-title g-2">${similar.title}</h5>
+        <p class="card-text">${similar.overview.slice(0,40)}...</p>
+        <p id="movie-vote-avg-count">
+          <span>
+              <i class="fa-solid fa-star text-yellow"></i>
+              ${similar.vote_average} |  <i class="fa-solid fa-people-line text-yellow"></i> ${similar.vote_count}
+          </span>
+      </p>
+      <span class="col p-3 g-4">
+      `;  
+    out+="</span></div></div>";
+    singleSimilar.innerHTML=out;
+
     singleSimilar.addEventListener("click", () => {
       movieDetails(similar);
     });
@@ -499,9 +492,6 @@ const renderRelatedMovies = (relatedMovies) => {
   if (relatedMovies.length == 0) {
     const relatedMovieDiv = document.createElement("div");
     relatedMovieDiv.innerHTML = `<div>there is not movies <i class="fa-solid fa-heart-crack"></i></div>`;
-    // const related = document.querySelector('#related')
-    console.log("k")
-    // HomePageMovies.innerHTML="";
     HomePageMovies.appendChild(relatedMovieDiv);
   }
 

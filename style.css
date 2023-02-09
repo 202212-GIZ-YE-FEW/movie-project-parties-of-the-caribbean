@@ -186,6 +186,10 @@ header .result-Item img {
 
 .movies .card div {
     position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: rgba(0, 0, 0, 0.95);
     display: flex;
     flex-direction: column;
@@ -195,6 +199,7 @@ header .result-Item img {
 }
 
 .movies-Container .card:hover .card-body, .movies-Container .card.hover .card-body {
+    cursor: pointer;
     display: flex;
 }
 
