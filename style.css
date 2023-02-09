@@ -140,7 +140,7 @@ header .result-Item img{
 .movies h2{
     margin-bottom: 20px;
 }
-.movies ul {
+.movies #filter {
     display: flex;
     flex-direction: row;
     padding-left: 2px;
@@ -166,7 +166,7 @@ header .result-Item img{
 
 }
 .movies #date{
-    /* display: none; */
+    /* display: block; */
 }
 .movies-Container{
     /* gap: 2%; */
