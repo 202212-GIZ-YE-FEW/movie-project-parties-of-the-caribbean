@@ -38,7 +38,7 @@ a:hover{
 .cover-container {
   max-width: 100%;
   min-height: 100vh;
-  background: url("coverBG.png");
+  background: url("img/cover-bg.png");
   background-size: cover;
 }
 
