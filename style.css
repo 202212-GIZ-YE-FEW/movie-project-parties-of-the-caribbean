@@ -539,3 +539,7 @@ Footer .lastFooter {
 #movie-production-companies img {
     height: 60px;
 }
+
+.our-team [class*="fa"] {
+    color: rgb(234 179 8);
+}
