@@ -67,9 +67,10 @@ const fetchMovies = async (path) => {
   return res.json();
 };
 
-const renderMovies = (movies,container) => {
-  movies.map((movie) => {
-   let movieDiv= generateMovie(movie);
+const renderMovies = async (movies,container) => {
+ 
+  movies.map(async(movie) => {
+    let movieDiv= await generateMovie(movie);
     // container.innerHTML+=movieDiv;
     container.appendChild(movieDiv);
   });
@@ -82,29 +83,52 @@ const getListItems= async(items)=>{
 
 document.addEventListener("DOMContentLoaded", autorun);
 
-//style="width: 27rem;"
-
-const generateMovie=(movie)=>{
-  // const link=document.createElement("a");
-  // link.classList.add("btn");
-  // link.classList.add("btn-primary");
-  // link.innerText="Open Move";
+async function getMore (movie){
+  let link=`${TMDB_BASE_URL}/movie/${movie.id}?api_key=${atob(
+    "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+    )}`
   
+  let x= await fetch(link);
+  return x.json();
+}
+
+
+const generateMovie= async (movie)=>{
+
+  
+  let y =await getMore(movie);
+  
+
+
+
+
+
 
   const m=document.createElement("div");
   m.classList.add("col-lg-4");
   m.classList.add("col-md-6");
   m.classList.add("col-sm-12");
-  m.innerHTML=`
+  let out=`
   <div class="card">
               <img src="${BACKDROP_BASE_URL + movie.backdrop_path}"
                class="card-img-top" alt="${movie.title}">
               <div class="card-body text-center w-100 h-100 px-4">
               <h5 class="card-title g-2">${movie.title}</h5>
-              <p class="card-text">${movie.title}.</p>
-              </div>
-          </div>
-  `;
+              <p class="card-text">${movie.overview.slice(0,40)}...</p>
+              <p id="movie-vote-avg-count">
+                <span>
+                    <i class="fa-solid fa-star text-yellow"></i>
+                    ${movie.vote_average} |  <i class="fa-solid fa-people-line text-yellow"></i> ${movie.vote_count}
+                </span>
+            </p>
+            <span class="col p-3 g-4">
+            `;
+            y.genres.forEach(genre => {
+              out+=`<span class="badge text-bg-warning m-1">`+genre.name+"</span>";
+          
+          });   
+          out+="</span></div></div>";
+  m.innerHTML=out;
   m.addEventListener('click', function(){
     movieDetails(movie);
   });
@@ -546,13 +570,40 @@ search.addEventListener('search', getSearchRes);
 search.addEventListener('focusout',function(){
   setTimeout(function(){
     searchRes.style.display="none";
-  },100)
+  },200);
  
 });
+
 search.addEventListener('focus', function(){
   searchRes.style.display="block";
 });
 
+
+
+
+const dateFilter=document.getElementById("date");
+
+async function  filterByDate (i){
+  const link=`${TMDB_BASE_URL}/discover/movie?api_key=${atob(
+    "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+    )}&year=${i}`;
+    const res =await fetch(link);
+    return res.json();
+}
+
+for(let i=2000; i<=2023; i++){
+  const li =document.createElement("li");
+  const a =document.createElement("li");
+  a.classList.add("dropdown-item");
+  a.textContent=i;
+  li.appendChild(a);
+  li.addEventListener("click",async function (){
+   const mov=await filterByDate(i);
+   HomePageMovies.innerHTML="";
+   renderMovies(mov.results,HomePageMovies);
+  });
+  dateFilter.appendChild(li);
+}
 /////////////////////////
 //make nav fixed on scrool
 document.addEventListener("DOMContentLoaded", function(){
@@ -573,4 +624,7 @@ document.addEventListener("DOMContentLoaded", function(){
   });
 
 }); 
+
+// }); 
+
 
