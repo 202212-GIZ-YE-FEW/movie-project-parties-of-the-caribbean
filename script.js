@@ -286,17 +286,21 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
       </div>
     </div>
   </div>`; 
-  document.querySelector(".bg-description").style.setProperty('--background-image', `linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(21, 18, 18, 0.7), rgba(255, 212, 160, 0.7)), url(${BACKDROP_BASE_URL + movie.poster_path})`);
+  document.querySelector(".bg-description").style.setProperty('--background-image', `linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(21, 18, 18, 0.6), rgba(255, 212, 160, 0.6)), url(${BACKDROP_BASE_URL + movie.poster_path})`);
   HomePageMovies.innerHTML += `
   <div class="bg-dark text-white">
     <div class="container">
-      <div class="row flex-column py-5">
-        <h4 class="text-capitalize">top cast</h4>
-        <ul id="movie-actors" class="row justify-content-between text-center list-unstyled my-3">
+      <div class="row flex-column py-5 carousel-container">
+        <div class="d-flex align-items-center">
+          <h4 class="text-capitalize me-3">top cast</h4>
+          <button class="btn btn-sm text-white bg-dark mx-2 px-2 prev-btn"><i class="fa-sharp fa-solid fa-arrow-left"></i></button>
+          <button class="btn btn-sm text-white bg-dark mx-2 px-2 next-btn"><i class="fa-sharp fa-solid fa-arrow-right"></i></button>
+        </div>
+        <ul id="movie-actors" class="d-flex justify-content-between text-center list-unstyled my-3 track">
         </ul>
       </div>
       <div class="row flex-column py-5">
-        <h4 class="text-capitalize">Related Movies</h4>
+        <h4 class="text-capitalize ml-2">Related Movies</h4>
         <ul id="movie-related-movies" class="row justify-content-between text-center list-unstyled my-3"></ul>
       </div>
       <div class="row flex-column py-5">
@@ -314,13 +318,17 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
   `; 
 
   // The main 5 actors of the movies in the credit section
-  movieCredits.cast.slice(0, 5).map(actor => {
+  movieCredits.cast.map(actor => {
     const singleActor = document.createElement('li');
-    singleActor.classList.add('card_effects', 'my-4', 'col-sm-5', 'col-md-3', 'col-lg-2');
-    singleActor.innerHTML = `
+    singleActor.classList.add('my-4', 'mx-4', 'col-sm-5', 'col-md-3', 'col-xl-2');
+    if(actor.profile_path)
+        singleActor.innerHTML = `
         <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="${actor.name} profile" class="rounded-circle">
+    `
+    else singleActor.innerHTML = `
+    <img src="./img/placehoder profile.jpg" alt="${actor.name} profile" class="rounded-circle">
         <div class="text-center">
-          <h4 class="py-2">${actor.name}</h4>
+          <h6 class="py-2">${actor.name}</h6>
         </div>
       `;
     singleActor.addEventListener("click", () => {
@@ -359,6 +367,22 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
     });
     const similarsList = document.querySelector('ul#movie-related-movies');
     similarsList.appendChild(singleSimilar);
+  });
+
+  // slider actors
+  const carouselContainer = document.querySelector('.carousel-container');
+  const track = document.querySelector('.track');
+  const prev = document.querySelector('.prev-btn');
+  const next = document.querySelector('.next-btn');
+  const widthCarousel = carouselContainer.offsetWidth - 25;
+  let position = 0;
+  next.addEventListener('click', () => {
+    position += widthCarousel;
+    track.style.transform = `translateX(-${position}px)`
+  });
+  prev.addEventListener('click', () => {
+    position = 0;
+    track.style.transform = `translateX(0px)`
   });
 };
 
@@ -548,5 +572,5 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   });
 
-
 }); 
+
