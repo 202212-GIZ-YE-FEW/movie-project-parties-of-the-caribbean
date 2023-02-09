@@ -269,8 +269,8 @@ const renderMovie = (movie, movieCredits, movieSimilars, movieTrailer) => {
           <div class="col-md-4 col-lg-3">
             <img id="movie-backdrop" src=${BACKDROP_BASE_URL + movie.poster_path} alt="${movie.title} poster" class="w-100">
           </div>
-          <div class="col-md-8 col-lg-9 d-flex flex-column justify-content-between">
-            <h2 id="movie-title" class="text-4xl font-weight-bolder mb-4">${movie.id}, ${movie.title}</h2>
+          <div class="col-md-8 col-lg-9 d-flex flex-column justify-content-between text-start">
+            <h2 id="movie-title" class="font-weight-bolder mb-4">${movie.id}, ${movie.title}</h2>
             <p id="movie-vote-avg-count">
                 <span>
                     <i class="fa-solid fa-star text-yellow"></i>

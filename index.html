@@ -109,22 +109,22 @@
         <div class="movies container">
             <h2 class="text-right">Movies</h2>
             <ul id="filter">
-                <li>
+                <li class="me-3">
                     <a class="active" onclick="updateHomeMovies(`movie/now_playing`,this)">Playing Now</a>
                 </li>
-                <li>
+                <li class="me-3">
                     <a onclick="updateHomeMovies(`movie/top_rated`,this)">Top Rated</a>
                 </li>
-                <li>
+                <li class="me-3">
                     <a onclick="updateHomeMovies(`movie/popular`,this)">Popular</a>
                 </li>
                 <!-- <li>
                 <a onclick="updateHomeMovies(`movie/latest`,this)">Release Date</a>
             </li> -->
-                <li>
+                <li class="me-3">
                     <a onclick="updateHomeMovies(`movie/upcoming`,this)">Upcoming</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown me-3">
                     <a
                         class="nav-link dropdown-toggle"
                         role="button"
@@ -143,10 +143,6 @@
                             <a class="dropdown-item">2012</a>
                           </li> --></ul>
                 </li>
-                <!-- 
-            <li>
-              
-            </li> -->
             </ul>
             <div class="movies-Container row g-4 row-cols-auto text-center" id="Hp-movies"></div>
         </div>

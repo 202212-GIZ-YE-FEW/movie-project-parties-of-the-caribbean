@@ -144,7 +144,7 @@ header .result-Item img {
 .movies {
     padding-block: 50px;
     margin-inline: auto;
-    min-width: 100%;
+    /* min-width: 100%; */
 }
 
 .movies h2 {
@@ -158,7 +158,7 @@ header .result-Item img {
 }
 
 .movies ul li {
-    margin-right: 20px;
+    /* margin-right: 20px; */
     list-style: none;
 }
 
